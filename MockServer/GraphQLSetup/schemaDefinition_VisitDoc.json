@@ -1,0 +1,25 @@
+{
+  "types": [
+    {
+      "name": "StaffLevel",
+      "fields": [
+        { "name": "department", "type": "String" },
+        { "name": "name", "type": "String" },
+        { "name": "visitDate", "type": "Float" },
+        { "name": "level", "type": "String" },
+        { "name": "confidential", "type": "Boolean" }
+      ]
+    }
+  ],
+  "queries": [
+    {
+      "name": "getStaffVisit",
+      "type": "StaffLevel",
+      "arguments": [
+        { "name": "name", "type": "String" },
+        { "name": "confidential", "type": "Boolean" },
+        { "name": "fileName", "type": "String" }
+      ]
+    }
+  ]
+}

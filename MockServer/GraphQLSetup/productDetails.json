@@ -1,0 +1,23 @@
+{
+  "queries": [
+    {
+      "name": "productDetail",
+      "query": "query productDetail($id: ID) { getProdDetail(id: $id) { id name description price}}",
+      "variables": {
+        "id": "001"
+      },
+      "response": {
+        "data": {
+          "getProdDetail": [
+            {
+              "id": "001",
+              "name": "mode -1",
+              "description": "this is mode 1",
+              "price": 123.4
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

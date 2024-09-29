@@ -1,0 +1,48 @@
+{
+  "queries": [
+    {
+      "name": "StaffLevel",
+      "query": "query StaffLevel($name:String, $confidential: Boolean, $fileName: String) { getStaffVisit(name: $name, confidential: $confidential, fileName:$fileName) { department name visitDate level confidential}}",
+      "variables": {
+        "name": "jun",
+        "confidential": true,
+        "fileName": "projectA_Cost.doc"
+      },
+      "response": {
+        "data": {
+          "getStaffVisit": [
+            {
+              "department": "001",
+              "name": "jun",
+              "visitDate": 17986543000000,
+              "level": "A",
+              "confidential":true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "StaffLevel",
+      "query": "query StaffLevel($name:String, $confidential: Boolean, $fileName: String) { getStaffVisit(name: $name, confidential: $confidential, fileName:$fileName) { department name visitDate level confidential}}",
+      "variables": {
+        "name": "Mary",
+        "confidential": true,
+        "fileName": "projectA_design_confidential.doc"
+      },
+      "response": {
+        "data": {
+          "getStaffVisit": [
+            {
+              "department": "002",
+              "name": "Mary",
+              "visitDate": 17986543000000,
+              "level": "A",
+              "confidential":true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

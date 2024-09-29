@@ -1,0 +1,24 @@
+{
+  "types": [
+    {
+      "name": "productDetail",
+      "fields": [
+        { "name": "id", "type": "ID" },
+        { "name": "name", "type": "String" },
+        { "name": "description", "type": "String" },
+        { "name": "price", "type": "Float" }
+
+      ]
+    }
+  ],
+  "queries": [
+    {
+      "name": "getProdDetail",
+      "type": "productDetail",
+      "arguments": [
+        { "name": "id", "type": "ID" }
+
+      ]
+    }
+  ]
+}
