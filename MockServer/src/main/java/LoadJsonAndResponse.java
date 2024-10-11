@@ -18,8 +18,8 @@ public class LoadJsonAndResponse {
         try {
             // Load JSON configuration
             JsonConfig jsonConfig = new JsonConfig();
-            //String fileName = "productDetails.json";
-            String fileName = "vistDoc.json";
+            String fileName = "productDetails.json";
+            //String fileName = "vistDoc.json";
             String responseFilePath = jsonConfig.getJsonFileFullPath(jsonConfig.obtainJsonLocationJar(false),fileName);
 
             System.out.println("INFO: Response Json File: " + responseFilePath);

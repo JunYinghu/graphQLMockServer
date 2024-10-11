@@ -57,7 +57,6 @@ public class MockGraphQLServer {
             GraphQLObjectType returnTypeObject = typeMap.get(returnType);
 
             GraphQLFieldDefinition.Builder queryBuilder = GraphQLFieldDefinition.newFieldDefinition().name(queryName).type(new GraphQLList(returnTypeObject));
-
             JsonNode argumentsNode = queryNode.path("arguments");
             for (JsonNode argNode : argumentsNode) {
                 String argName = argNode.path("name").asText();
@@ -75,8 +74,8 @@ public class MockGraphQLServer {
 
     private JsonNode getJsonNode() {
         JsonConfig jsonConfig = new JsonConfig();
-        //String jsonSchemaFileName = "schemaDefinition_productDetails.json";
-        String jsonSchemaFileName = "schemaDefinition_VisitDoc.json";
+        String jsonSchemaFileName = "schemaDefinition_productDetails.json";
+        //String jsonSchemaFileName = "schemaDefinition_VisitDoc.json";
 
         String jsonschemaPathString = jsonConfig.getJsonFileFullPath(jsonConfig.obtainJsonLocationJar(true),jsonSchemaFileName);
         System.out.println("INFO: Schema Definition File " + jsonschemaPathString);

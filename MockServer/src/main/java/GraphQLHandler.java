@@ -42,26 +42,29 @@ public class GraphQLHandler extends AbstractHandler {
                 // reform variables as map type
                 LinkedHashMap<String, Object> variables = new LinkedHashMap<>();
                 Map<String, Object> requestVariables = new LinkedHashMap<>();
+
                 // use it if all variables are string
                 //variablesObj.entrySet().forEach(entry -> {
                 //    variables.put(entry.getKey(), entry.getValue().getAsString());
                 //});
-
                 variablesObj.entrySet().forEach(stringJsonElementEntry -> {
                     JsonElement value = stringJsonElementEntry.getValue();
                     String key = stringJsonElementEntry.getKey();
-
+                    System.out.println("-----------"+ key + value);
                 // determine the type of JSON element and convert it accordingly
                 // add to deal other format
                 if (value.isJsonPrimitive()){
                     if (value.getAsJsonPrimitive().isBoolean()){
-                        variables.put(key,value.getAsBoolean());
+                       // variables.put(key,value.getAsBoolean());
+                        System.out.println("----(((-------"+ key + value);
                         requestVariables.put(key, value.getAsBoolean());
                     }else if (value.getAsJsonPrimitive().isNumber()){
-                        variables.put(key,value.getAsNumber());
+                        System.out.println("------)))-----"+ key + value);
+                       // variables.put(key,value.getAsNumber());
                         requestVariables.put(key, value.getAsNumber());
                     } else if (value.getAsJsonPrimitive().isString()){
-                        variables.put(key,value.getAsString());
+                        System.out.println("-------+++----"+ key + value);
+                       // variables.put(key,value.getAsString());
                         requestVariables.put(key, value.getAsString());
                     }
                 }

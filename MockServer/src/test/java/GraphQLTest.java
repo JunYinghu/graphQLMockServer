@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.given;
 public class GraphQLTest {
 
     public String requestBody(String name, Boolean confidential, String fileName) {
-        String query = "query StaffLevel($name:String, $confidential: Boolean, $fileName: String)" + " { getStaffVisit(name: $name, confidential: $confidential, fileName:$fileName)" + " { department" + " name" + " visitDate" + " level" + " confidential" + "}" + "}";
+        String query = "query StaffLevel($name:String, $confidential: Boolean, $fileName: String)" + " { getStaffVisit(name: $name, confidential:$confidential, fileName:$fileName)" + " { department" + " name" + " visitDate" + " level" + " confidential" + "}" + "}";
         return "{\"query\":\"" + query + "\",\"variables\":{\n" + "\"name\":\"" + name + "\"," + "\"confidential\":" + confidential + "," + "\"fileName\":\"" + fileName + "\" }}";
     }
 
@@ -84,7 +84,7 @@ public class GraphQLTest {
         // setup server and baseURI
         MockGraphQLServer graphQLServer = new MockGraphQLServer();
         GraphQLSchema schema = graphQLServer.schemaBuilder();
-        int port = 8089;
+        int port = 8083;
         graphQLServer.serverStart(schema, port);
         RestAssured.baseURI = "http://localhost:" + port + "/graphql";
 
