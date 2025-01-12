@@ -23,9 +23,8 @@ public class MockGraphQLServer {
     public static void main(String[] args) {
         MockGraphQLServer graphQLServer = new MockGraphQLServer();
         GraphQLSchema schema = graphQLServer.schemaBuilder();
-        int port = 8083;
-         //disable serverStop
-         graphQLServer.serverStop();
+        int port = 8085;
+
         graphQLServer.serverStart(schema, port);
 
         // disable serverStop

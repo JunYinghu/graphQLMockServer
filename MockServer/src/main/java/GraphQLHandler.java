@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import graphql.ExecutionInput;
+import graphql.ExecutionResult;
 import graphql.GraphQL;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -44,7 +46,7 @@ public class GraphQLHandler extends AbstractHandler {
                 //System.out.println("Request Body - variables: "+ variablesObj.toString());
                 // reform variables as map type
                 LinkedHashMap<String, Object> variables = new LinkedHashMap<>();
-                Map<String, Object> requestVariables = new LinkedHashMap<>();
+                LinkedHashMap<String, Object> requestVariables = new LinkedHashMap<>();
 
                 // use it if all variables are string
                 //variablesObj.entrySet().forEach(entry -> {
@@ -75,32 +77,44 @@ public class GraphQLHandler extends AbstractHandler {
                 // covert query with variables as execution input
                 ExecutionInput executionInput = ExecutionInput.newExecutionInput()
                         .query(query)
-                        .variables(variables)
+                        .variables(requestVariables)
                         .build();
+
+                //System.out.println("testing ------");
+                //System.out.println(query);
+                //System.out.println(requestVariables);
+                //System.out.println("testing ---++++++---");
 
                 JsonNode responseJsonData = null;
                 if (query.contains("get")) {
                     responseJsonData = LoadJsonAndResponse.getResponseForQuery(query, requestVariables);
-                    System.out.println("INFO: Response Data" + responseJsonData);
+                    System.out.println("INFO: Response Data " + responseJsonData);
                 }
 
                 // perform execution - while using data fetch
                 //ExecutionResult executionResult = graphQL.execute(executionInput);
-
+                //System.out.println("executionResult" + executionResult);
                 httpServletResponse.setContentType("application/json");
                 httpServletResponse.setStatus(HttpServletResponse.SC_OK);
 
                 // reform returned data as json
                 ObjectMapper objectMapper = new ObjectMapper();
                 //- while using data fetch
-                objectMapper.writeValue(httpServletResponse.getWriter(), responseJsonData);
+                Map<String, Object> wrappedResponse = new HashMap<>();
+                wrappedResponse.put("data", responseJsonData);  // Wrap your response inside "data"
+
+                objectMapper.writeValue(httpServletResponse.getWriter(), wrappedResponse);
 
                 //objectMapper.writeValue(httpServletResponse.getWriter(), executionResult.toSpecification());
                 request.setHandled(true);
+
+
+
             } else if (s.contains("/download")) {
                 //JsonConfig json = new JsonConfig();
                 //json.getUrlValue();
                 String fileName = extractFileNameFromUrl(s);
+                System.out.println("============"+ fileName);
                 if (fileName != null) {
                     System.out.println("INFO: File Start Downloading");
                     handleFileDownload(httpServletRequest, httpServletResponse, fileName);

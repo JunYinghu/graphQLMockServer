@@ -12,14 +12,14 @@
           "getInsightRules": [
             {
               "productLineCode": "HMY",
-              "url": "http://localhost:8083/download/hym01.zip",
+              "url": "https://localhost:8085/download/hym01.zip",
               "versionConstraint": "92.0.0,91.0.0",
-              "rulesEngine": "hym01.zip",
+              "rulesEngine": "testingName.zip",
               "checksum": ""
             },
             {
               "productLineCode": "HMY",
-              "url": "http://localhost:8083/download/hym02.zip",
+              "url": "https://localhost:8085/download/hym02.zip",
               "versionConstraint": "92.0.0,91.0.0",
               "rulesEngine": "hym02.zip",
               "checksum": ""
@@ -40,14 +40,14 @@
           "getInsightRules": [
             {
               "productLineCode": "ODS",
-              "url": "http://localhost:8083/download/ods01.zip",
+              "url": "https://localhost:8085/download/ods01.zip",
               "versionConstraint": "92.0.0,91.0.0",
               "rulesEngine": "ods01.zip",
               "checksum": ""
             },
             {
               "productLineCode": "ODS",
-              "url": "http://localhost:8083/download/ods0s.zip",
+              "url": "https://localhost:8085/download/ods0s.zip",
               "versionConstraint": "92.0.0,91.0.0",
               "rulesEngine": "ods02.zip",
               "checksum": ""

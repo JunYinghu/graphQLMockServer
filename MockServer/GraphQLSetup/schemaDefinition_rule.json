@@ -6,7 +6,8 @@
         { "name": "productLineCode", "type": "String" },
         { "name": "url", "type": "String" },
         { "name": "versionConstraint", "type": "String" },
-        { "name": "rulesEngine", "type": "Float" }
+        { "name": "rulesEngine", "type": "String" },
+        { "name": "checksum", "type": "String" }
 
       ]
     }
