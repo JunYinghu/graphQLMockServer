@@ -25,9 +25,6 @@ public class MockGraphQLServer {
         GraphQLSchema schema = graphQLServer.schemaBuilder();
         int port = 8083;
 
-
-
-
         graphQLServer.serverStart(schema, port);
 
         // disable serverStop
@@ -132,6 +129,8 @@ public class MockGraphQLServer {
     }
 
     public void serverStart(GraphQLSchema schema, int port) {
+
+        DisableSSL.disableSSLVerification();
 
         GraphQL graphQL = GraphQL.newGraphQL(schema).build();
 
