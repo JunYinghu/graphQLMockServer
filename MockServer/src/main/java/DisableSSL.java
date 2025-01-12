@@ -1,9 +1,10 @@
 import javax.net.ssl.*;
+import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 
 public class DisableSSL {
 
-    protected static void disableSSLVerification() {
+    public static void disableSSLVerification() {
         try {
             // Create a trust manager that does not validate certificate chains
             TrustManager[] trustAllCerts = new TrustManager[]{
@@ -22,13 +23,11 @@ public class DisableSSL {
 
             // Install the all-trusting trust manager
             SSLContext sc = SSLContext.getInstance("TLS");
-            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+            sc.init(null, trustAllCerts, new SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 
-            // Create an all-trusting host name verifier
-            HostnameVerifier allHostsValid = (hostname, session) -> true;
-
             // Install the all-trusting host verifier
+            HostnameVerifier allHostsValid = (hostname, session) -> true;
             HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
 
             System.out.println("INFO: SSL Verification Disabled");
@@ -36,5 +35,5 @@ public class DisableSSL {
             throw new RuntimeException("Failed to disable SSL verification", e);
         }
     }
-
 }
+
