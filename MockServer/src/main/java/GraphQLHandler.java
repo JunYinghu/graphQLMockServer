@@ -40,6 +40,7 @@ public class GraphQLHandler extends AbstractHandler {
 
                 // extract query part from jsonObject
                 String query = jsonObject.get("query").getAsString();
+                JsonElement queryNode = jsonObject.get("query");
                 //System.out.println("Request Body - query: "+ query.toString());
                 // extract variables part from jsonObject
                 JsonObject variablesObj = jsonObject.getAsJsonObject("variables");

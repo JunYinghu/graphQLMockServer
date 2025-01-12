@@ -5,6 +5,7 @@ import com.google.gson.stream.JsonReader;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -36,7 +37,50 @@ public class LoadJsonAndResponse {
         return objectMapper.createObjectNode().put("message", message);
     }
 
+    private static final Map<String, JsonNode> QUERY_CACHE = new HashMap<>();
+
+    static void preloadQueries(JsonNode queriesArray) {
+        if (queriesArray == null) {
+            throw new IllegalStateException("INFO: Configuration not loaded");
+        }
+
+        for (JsonNode queryNode : queriesArray) {
+            String queryText = queryNode.path("query").asText().trim();
+            JsonNode variables = queryNode.path("variables");
+            JsonNode response = queryNode.path("response").path("data");
+
+            // Combine query text and variables into a unique key
+            String cacheKey = createCacheKey(queryText, variables);
+            QUERY_CACHE.put(cacheKey, response);
+        }
+
+        System.out.println("INFO: Preloaded Query Cache: " + QUERY_CACHE.keySet());
+    }
+
+    private static String createCacheKey(String queryText, JsonNode variables) {
+        return queryText + ":" + variables.toString();
+    }
+
     static JsonNode getResponseForQuery(String constructedQuery, Map<String, Object> requestVariables) {
+        // Create a JSON representation of the request variables
+        preloadQueries( queriesArray);
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode requestVariablesNode = objectMapper.convertValue(requestVariables, JsonNode.class);
+
+        // Generate the cache key
+        String cacheKey = createCacheKey(constructedQuery, requestVariablesNode);
+
+        // Fetch from cache
+        JsonNode cachedResponse = QUERY_CACHE.get(cacheKey);
+
+        if (cachedResponse != null) {
+            return cachedResponse; // Return matched response
+        } else {
+            return createErrorResponse("No Data Found"); // Return 404 equivalent
+        }
+    }
+
+    static JsonNode getResponseForQuery_b(String constructedQuery, Map<String, Object> requestVariables) {
         if (queriesArray == null) {
             return createErrorResponse("INFO: Configuration not loaded");
         }
