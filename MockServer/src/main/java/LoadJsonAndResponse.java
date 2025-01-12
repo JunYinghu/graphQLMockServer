@@ -41,6 +41,9 @@ public class LoadJsonAndResponse {
             return createErrorResponse("INFO: Configuration not loaded");
         }
 
+        JsonNode matchedResponse = null; // Track the matching response
+        boolean isMatched = false;      // Track if a match was found
+
         for (JsonNode queryNode : queriesArray) {
             String queryText = queryNode.path("query").asText().trim();
 
@@ -81,12 +84,9 @@ public class LoadJsonAndResponse {
 
                 variablesMatch = VariablesInJson.equals(requestVariables);
                 if (variablesMatch) {
-                    JsonNode responseNode = queryNode.path("response").path("data");
-                    // Call method to get the node with key starting with "get"
-                    //JsonNode dynamicDataNode = getNodeStartingWithGet(responseNode);
+                    matchedResponse  = queryNode.path("response").path("data");
 
-                    //JsonNode responseNode = queryNode.path("response").path("data").path("getStaffVisit");
-                    return responseNode;
+                    break;
                 }
                 else {
                     System.out.println("INFO: Request Query Variable Not Found In Schema, Proceed Next Search");
@@ -96,8 +96,12 @@ public class LoadJsonAndResponse {
                 System.out.println("INFO: Request Query Not Found In Schema, Proceed Next Search");
             }
         }
-        // Return "no data found" if no matching query is found
-        return createErrorResponse("No Data Found");
+        if (matchedResponse!=null){
+            return matchedResponse ;
+        }else {
+            // Return "no data found" if no matching query is found
+            return createErrorResponse("No Data Found");
+        }
     }
 
     private static JsonNode getNodeStartingWithGet(JsonNode dataNode) {
