@@ -2,7 +2,7 @@
   "queries": [
     {
       "name": "InsightRules",
-      "query": "query InsightRules($productLineCode: String!,$version:String) { getInsightRules(product: $productLineCode,version:$version) { productLineCode url versionConstraint rulesEngine checksum}}",
+      "query": "query InsightRules($productLineCode: String!,$version:String!) { getInsightRules(product: $productLineCode,version:$version) { productLineCode url versionConstraint rulesEngine checksum}}",
       "variables": {
         "productLineCode": "HMY",
         "version": "92.0.0"

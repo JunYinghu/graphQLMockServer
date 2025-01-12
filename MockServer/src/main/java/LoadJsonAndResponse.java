@@ -77,7 +77,7 @@ public class LoadJsonAndResponse {
                     // Add handling for other types if necessary
                 }
                 System.out.println("INFO: Expect Variable "+  VariablesInJson);
-                System.out.println("INFO: Request Variable"+  requestVariables);
+                System.out.println("INFO: Request Variable "+  requestVariables);
 
                 variablesMatch = VariablesInJson.equals(requestVariables);
                 if (variablesMatch) {

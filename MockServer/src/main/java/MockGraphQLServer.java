@@ -4,6 +4,8 @@ import com.google.gson.stream.JsonReader;
 import graphql.GraphQL;
 import graphql.schema.*;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.util.ssl.SslContextFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +24,10 @@ public class MockGraphQLServer {
         MockGraphQLServer graphQLServer = new MockGraphQLServer();
         GraphQLSchema schema = graphQLServer.schemaBuilder();
         int port = 8083;
+
+
+
+
         graphQLServer.serverStart(schema, port);
 
         // disable serverStop
@@ -126,8 +132,29 @@ public class MockGraphQLServer {
     }
 
     public void serverStart(GraphQLSchema schema, int port) {
+
         GraphQL graphQL = GraphQL.newGraphQL(schema).build();
-        server = new Server(port);
+
+        server = new Server();
+
+        SslContextFactory.Server sslContextFactory = new SslContextFactory.Server();
+        //sslContextFactory.setKeyStorePath("D:\\PriorTest\\graphQLMockServer\\MockServer\\src\\main\\java\\keystore.jks"); // Replace with your KeyStore path
+        JsonConfig jsonConfig = new JsonConfig();
+        String fileName = "keystore.jks";
+
+        String keyStoreJks = jsonConfig.getJsonFileFullPath(jsonConfig.obtainDownloadLocation(fileName),fileName);
+        System.out.println("INFO: keyStoreJks File: " + keyStoreJks);
+        sslContextFactory.setKeyStorePath(keyStoreJks); // Replace with your KeyStore path
+
+        sslContextFactory.setKeyStorePassword("123456"); // Replace with your KeyStore password
+        sslContextFactory.setKeyManagerPassword("123456"); // Replace with your key password
+
+        // Configure the HTTPS connector
+        ServerConnector sslConnector = new ServerConnector(server, sslContextFactory);
+        sslConnector.setPort(port);
+
+        server.addConnector(sslConnector);
+
 
         server.setHandler(new GraphQLHandler(graphQL));
         try {
