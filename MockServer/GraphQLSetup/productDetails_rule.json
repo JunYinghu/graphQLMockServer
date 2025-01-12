@@ -1,0 +1,60 @@
+{
+  "queries": [
+    {
+      "name": "InsightRules",
+      "query": "query InsightRules($productLineCode: String!,$version:String) { getInsightRules(product: $productLineCode,version:$version) { productLineCode url versionConstraint rulesEngine checksum}}",
+      "variables": {
+        "productLineCode": "HMY",
+        "version": "92.0.0"
+      },
+      "response": {
+        "data": {
+          "getInsightRules": [
+            {
+              "productLineCode": "HMY",
+              "url": "http://localhost:8083/download/hym01.zip",
+              "versionConstraint": "92.0.0,91.0.0",
+              "rulesEngine": "hym01.zip",
+              "checksum": ""
+            },
+            {
+              "productLineCode": "HMY",
+              "url": "http://localhost:8083/download/hym02.zip",
+              "versionConstraint": "92.0.0,91.0.0",
+              "rulesEngine": "hym02.zip",
+              "checksum": ""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "InsightRules",
+      "query": "query InsightRules($productLineCode: String!,$version:String) { getInsightRules(product: $productLineCode,version:$version) { productLineCode url versionConstraint rulesEngine checksum}}",
+      "variables": {
+        "productLineCode": "ODS",
+        "version": "92.0.0"
+      },
+      "response": {
+        "data": {
+          "getInsightRules": [
+            {
+              "productLineCode": "ODS",
+              "url": "http://localhost:8083/download/ods01.zip",
+              "versionConstraint": "92.0.0,91.0.0",
+              "rulesEngine": "ods01.zip",
+              "checksum": ""
+            },
+            {
+              "productLineCode": "ODS",
+              "url": "http://localhost:8083/download/ods0s.zip",
+              "versionConstraint": "92.0.0,91.0.0",
+              "rulesEngine": "ods02.zip",
+              "checksum": ""
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

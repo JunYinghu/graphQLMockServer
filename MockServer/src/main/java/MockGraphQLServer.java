@@ -74,7 +74,7 @@ public class MockGraphQLServer {
 
     private JsonNode getJsonNode() {
         JsonConfig jsonConfig = new JsonConfig();
-        String jsonSchemaFileName = "schemaDefinition_productDetails.json";
+        String jsonSchemaFileName = "schemaDefinition_rule.json";
         //String jsonSchemaFileName = "schemaDefinition_VisitDoc.json";
 
         String jsonschemaPathString = jsonConfig.getJsonFileFullPath(jsonConfig.obtainJsonLocationJar(true),jsonSchemaFileName);

@@ -1,0 +1,25 @@
+{
+  "types": [
+    {
+      "name": "InsightRules",
+      "fields": [
+        { "name": "productLineCode", "type": "String" },
+        { "name": "url", "type": "String" },
+        { "name": "versionConstraint", "type": "String" },
+        { "name": "rulesEngine", "type": "Float" }
+
+      ]
+    }
+  ],
+  "queries": [
+    {
+      "name": "getInsightRules",
+      "type": "InsightRules",
+      "arguments": [
+        { "name": "productLineCode", "type": "String" },
+        { "name": "version", "type": "String" }
+
+      ]
+    }
+  ]
+}
